@@ -1,0 +1,44 @@
+.cart {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .cart h2 {
+    margin-top: 0;
+  }
+  
+  .cart ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .cart li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .cart button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .remove {
+    background-color: #ff4d4d;
+    color: white;
+  }
+  
+  .remove:hover {
+    background-color: #cc0000;
+  }
+
+  .actions {
+    display: flex;
+    gap: 5px
+  }
+  

@@ -1,8 +1,11 @@
-// React + TypeScript Frontend Code
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import AuthModal from './components/AuthModal.tsx';
+import {BotViewModal} from './components/BotViewModal.tsx';
+import TemplateList from './components/templateList/TemplateList.tsx';
+import Cart from './components/cart/Cart.tsx';
+import { fetchTemplates } from './api.ts';
 
-interface Template {
+export interface Template {
   id: number;
   name: string;
   category: string;
@@ -17,11 +20,12 @@ const App: React.FC = () => {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
   const [isBotViewOpen, setIsBotViewOpen] = useState<boolean>(false);
   const [selectedBot, setSelectedBot] = useState<Template | null>(null);
+  const [cart, setCart] = useState<Template[]>([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/templates').then((response) => {
-      setTemplates(response.data);
-      setFilteredTemplates(response.data);
+    fetchTemplates().then((data) => {
+      setTemplates(data);
+      setFilteredTemplates(data);
     });
   }, []);
 
@@ -47,6 +51,14 @@ const App: React.FC = () => {
     setIsBotViewOpen(false);
   };
 
+  const addToCart = (template: Template) => {
+    setCart((prevCart) => [...prevCart, template]);
+  };
+
+  const removeFromCart = (id: number) => {
+    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
+  };
+
   return (
     <div>
       <h1>ChatBotMarket</h1>
@@ -57,49 +69,11 @@ const App: React.FC = () => {
         value={searchTerm}
         onChange={handleSearch}
       />
-      <div>
-        {filteredTemplates.map((template) => (
-          <div key={template.id} style={{ border: '1px solid #ccc', padding: '10px', margin: '10px' }}>
-            <h2>{template.name}</h2>
-            <p>{template.description}</p>
-            <p>Category: {template.category}</p>
-            <p>Price: ${template.price}</p>
-            <button onClick={() => openBotView(template)}>View</button>
-          </div>
-        ))}
-      </div>
+      <TemplateList templates={filteredTemplates} onView={openBotView} onAddToCart={addToCart} />
+      <Cart cartItems={cart} onRemove={removeFromCart} onView={openBotView}/>
 
-      {isAuthModalOpen && (
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '5px' }}>
-            <h2>Login / Register</h2>
-            <form>
-              <div>
-                <label>Email:</label>
-                <input type="email" required />
-              </div>
-              <div>
-                <label>Password:</label>
-                <input type="password" required />
-              </div>
-              <button type="submit">Submit</button>
-            </form>
-            <button onClick={closeAuthModal}>Close</button>
-          </div>
-        </div>
-      )}
-
-      {isBotViewOpen && selectedBot && (
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '5px' }}>
-            <h2>{selectedBot.name}</h2>
-            <p>{selectedBot.description}</p>
-            <p>Category: {selectedBot.category}</p>
-            <p>Price: ${selectedBot.price}</p>
-            <button onClick={closeBotView}>Close</button>
-          </div>
-        </div>
-      )}
+      {isAuthModalOpen && <AuthModal onClose={closeAuthModal} />}
+      {isBotViewOpen && selectedBot && <BotViewModal bot={selectedBot} onClose={closeBotView} />}
     </div>
   );
 };

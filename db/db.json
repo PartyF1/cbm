@@ -1,7 +1,57 @@
 {
-    "templates": [
-      { "id": 1, "name": "Retail Bot", "category": "Retail", "description": "A bot for retail automation.", "price": 100 },
-      { "id": 2, "name": "Service Bot", "category": "Customer Service", "description": "A bot for customer service.", "price": 150 }
-    ]
-  }
-  
+  "users": [
+    {
+      "id": "1",
+      "email": "user@example.com",
+      "password": "password123",
+      "isAuthorized": false
+    },
+    {
+      "id": "640d",
+      "email": "user@example.com",
+      "password": "password123"
+    },
+    {
+      "id": "f388",
+      "email": "pet@gg",
+      "password": "1"
+    }
+  ],
+  "templates": [
+    {
+      "id": "1",
+      "name": "Retail Bot",
+      "category": "Retail",
+      "description": "A bot for retail automation.",
+      "price": 100
+    },
+    {
+      "id": "2",
+      "name": "Service Bot",
+      "category": "Customer Service",
+      "description": "A bot for customer service.",
+      "price": 150
+    },
+    {
+      "id": "3",
+      "name": "Retail Bot",
+      "category": "Retail",
+      "description": "A bot for retail automation.",
+      "price": 100
+    },
+    {
+      "id": "4",
+      "name": "Retail Bot",
+      "category": "Retail",
+      "description": "A bot for retail automation.",
+      "price": 100
+    },
+    {
+      "id": "5",
+      "name": "Retail Bot",
+      "category": "Retail",
+      "description": "A bot for retail automation.",
+      "price": 100
+    }
+  ]
+}
