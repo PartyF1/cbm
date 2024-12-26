@@ -1,0 +1,7 @@
+{
+    "templates": [
+      { "id": 1, "name": "Retail Bot", "category": "Retail", "description": "A bot for retail automation.", "price": 100 },
+      { "id": 2, "name": "Service Bot", "category": "Customer Service", "description": "A bot for customer service.", "price": 150 }
+    ]
+  }
+  
